@@ -1,0 +1,13 @@
+* {
+    margin: 0px;
+    }
+
+.restaurants {
+    display: flex;
+    justify-content: center;
+    border: 5px solid red;
+    background-color: blueviolet;
+}
+
+
+    
