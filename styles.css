@@ -2,17 +2,24 @@
     margin: 0px;
     }
 
+.list_container {
+    display: flex;
+    justify-content: center;
+    border: 1px solid purple;
+}
+
 .restaurants {
     display: flex;
     justify-content: center;
     border: 2px solid red;
     flex-direction: column;
     width: 400px;
+    align-self: center;
 }
 
 .list_header {
     display: flex;
-    justify-content: center;
+    justify-content: left;
     border: 2px solid black;
 }
 
