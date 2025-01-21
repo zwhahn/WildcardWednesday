@@ -9,7 +9,8 @@ function initialize() {
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: work_place,
-        zoom: 15
+        zoom: 15,
+        mapId: "DEMO_MAP_ID",
     });
 
     var request = {
@@ -34,4 +35,12 @@ function callback(results, status) {
     } else {
         console.error("PlacesServiceStatus Error:", status);
     }
+}
+
+function createMarker(place) {
+    const marker = new google.maps.marker.AdvancedMarkerElement({
+        map: map,
+        position: place.geometry.location,
+        title: place.name,
+    });
 }
