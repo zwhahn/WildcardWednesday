@@ -5,13 +5,11 @@
 .list_container {
     display: flex;
     justify-content: center;
-    border: 1px solid purple;
 }
 
 .restaurants {
     display: flex;
     justify-content: center;
-    border: 2px solid red;
     flex-direction: column;
     width: 400px;
     align-self: center;
@@ -20,14 +18,15 @@
 .list_header {
     display: flex;
     justify-content: left;
-    border: 2px solid black;
 }
 
 .restaurants_list {
     display: flex;
-    border: 2px solid blue;
     flex-flow: column;
+}
 
+#map {
+    height: 200px;
 }
 
 
