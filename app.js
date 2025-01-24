@@ -1,6 +1,7 @@
 var map;
 var service;
 var infoWindow;
+var request;
 
 const placeListContainer = document.getElementById('place-list-container');
 const searchButton = document.getElementById('search');
@@ -22,7 +23,7 @@ function initialize() {
     var distance = rangeInput.value;
     console.log(`Distance: ${distance}`);
 
-    var request = {
+    request = {
         location: work_place,
         radius: distance,
         type: ["restaurant"],
@@ -38,7 +39,8 @@ function initialize() {
 }
 
 function searchNearby(request) {
-    console.log("searched")
+    console.log("searched");
+    console.log(`Searched distance: ${request.radius}`)
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, randomSelection);
 }
@@ -86,6 +88,6 @@ function createMarker(place) {
 
 function getRangeValue() {
     var distance = rangeInput.value;
-    console.log(`Distance Updating: ${distance}`)
+    request.radius = distance;
     return distance;
 }
