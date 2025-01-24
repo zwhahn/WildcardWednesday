@@ -2,8 +2,9 @@ var map;
 var service;
 var infoWindow;
 
-placeListContainer = document.getElementById('place-list-container');
-searchButton = document.getElementById('search');
+const placeListContainer = document.getElementById('place-list-container');
+const searchButton = document.getElementById('search');
+const rangeInput = document.getElementById("distance");
 
 function initialize() {
     var work_place = new google.maps.LatLng(37.762695, -122.408930);
@@ -15,11 +16,14 @@ function initialize() {
         mapId: "DEMO_MAP_ID",
     });
 
+    var distance = rangeInput.value;
+    console.log(`Distance: ${distance}`);
+
     var request = {
         location: work_place,
-        // radius: '500',
+        radius: distance,
         type: ["restaurant"],
-        rankBy: google.maps.places.RankBy.DISTANCE, 
+        // rankBy: google.maps.places.RankBy.DISTANCE, 
     };
 
     searchButton.addEventListener("click", function() {
