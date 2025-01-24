@@ -5,6 +5,9 @@ var infoWindow;
 const placeListContainer = document.getElementById('place-list-container');
 const searchButton = document.getElementById('search');
 const rangeInput = document.getElementById("distance");
+rangeInput.oninput = function () {
+    getRangeValue();
+};
 
 function initialize() {
     var work_place = new google.maps.LatLng(37.762695, -122.408930);
@@ -79,4 +82,10 @@ function createMarker(place) {
         position: place.geometry.location,
         title: place.name,
     });
+}
+
+function getRangeValue() {
+    var distance = rangeInput.value;
+    console.log(`Distance Updating: ${distance}`)
+    return distance;
 }
