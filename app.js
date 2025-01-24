@@ -2,6 +2,8 @@ var map;
 var service;
 var infoWindow;
 
+placeListContainer = document.getElementById('place-list-container');
+searchButton = document.getElementById('search');
 
 function initialize() {
     var work_place = new google.maps.LatLng(37.762695, -122.408930);
@@ -20,6 +22,16 @@ function initialize() {
         rankBy: google.maps.places.RankBy.DISTANCE, 
     };
 
+    searchButton.addEventListener("click", function() {
+        searchNearby(request);
+    });
+
+    // service = new google.maps.places.PlacesService(map);
+    // service.nearbySearch(request, callback);
+}
+
+function searchNearby(request) {
+    console.log("searched")
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback);
 }
@@ -29,8 +41,12 @@ function callback(results, status) {
         console.log('Results:');
         for (var i = 0; i < results.length; i++) {
             restaurantName = results[i].name;
+            const place = document.createElement("div");
+            place.classList.add("place");
+            place.textContent = restaurantName;
+            placeListContainer.appendChild(place);
             createMarker(results[i]);
-            console.log(restaurantName);
+            // console.log(restaurantName);
         }
     } else {
         console.error("PlacesServiceStatus Error:", status);
