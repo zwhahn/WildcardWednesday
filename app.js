@@ -33,7 +33,23 @@ function initialize() {
 function searchNearby(request) {
     console.log("searched")
     service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
+    service.nearbySearch(request, randomSelection);
+}
+
+function getRandomIndex(max) {
+    return Math.floor(Math.random() * max);
+}
+
+function randomSelection(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        var resultsLength = results.length;
+        var randomIndex = getRandomIndex(resultsLength);
+        var randomRestaurant = results[randomIndex];
+        createMarker(randomRestaurant);
+        console.log("Random Selection:" + randomRestaurant.name);
+    } else {
+        console.error("PlacesServiceStatus Error:", status);
+    }
 }
 
 function callback(results, status) {
