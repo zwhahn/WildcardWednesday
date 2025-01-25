@@ -2,6 +2,8 @@ var map;
 var service;
 var infoWindow;
 var request;
+var searchCircle;
+var centerCircle;
 
 const placeListContainer = document.getElementById('place-list-container');
 const searchButton = document.getElementById('search');
@@ -31,7 +33,8 @@ function initialize() {
         // rankBy: google.maps.places.RankBy.DISTANCE, 
     };
 
-    addCircleToMap(work_place);
+    drawSearchRadius(work_place);
+    drawCenterCircle(work_place);
     
     searchButton.addEventListener("click", function() {
         searchNearby(request);
@@ -41,13 +44,24 @@ function initialize() {
     // service.nearbySearch(request, callback);
 }
 
-function addCircleToMap(centerLoc) {
-    var circle = new google.maps.Circle({
+function drawSearchRadius(centerLoc) {
+    searchCircle = new google.maps.Circle({
         map: map,
         radius: 1100,
         fillColor: '#AA0000',
         center: centerLoc
     });
+    return;
+}
+
+function drawCenterCircle(centerLoc) {
+    centerCircle = new google.maps.Circle({
+        map: map,
+        radius: 10,
+        fillColor: 'blue',
+        center: centerLoc
+    });
+    return;
 }
 
 function searchNearby(request) {
@@ -102,6 +116,7 @@ function createMarker(place) {
 
 function getRangeValue() {
     var distance = rangeInput.value;
+    searchCircle.setRadius(parseInt(distance, 10));
     request.radius = distance;
     return distance;
 }
