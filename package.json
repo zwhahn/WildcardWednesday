@@ -1,0 +1,15 @@
+{
+  "name": "wildcardwednesday",
+  "version": "1.0.0",
+  "description": "Find a random place for lunch around work and allow people to give a rating to track quality",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.0",
+    "tailwindcss": "^4.0.0"
+  }
+}
