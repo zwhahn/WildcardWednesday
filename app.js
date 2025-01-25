@@ -20,9 +20,10 @@ function initialize() {
         mapId: "DEMO_MAP_ID",
     });
 
+    
     var distance = rangeInput.value;
     console.log(`Distance: ${distance}`);
-
+    
     request = {
         location: work_place,
         radius: distance,
@@ -30,12 +31,23 @@ function initialize() {
         // rankBy: google.maps.places.RankBy.DISTANCE, 
     };
 
+    addCircleToMap(work_place);
+    
     searchButton.addEventListener("click", function() {
         searchNearby(request);
     });
-
+    
     // service = new google.maps.places.PlacesService(map);
     // service.nearbySearch(request, callback);
+}
+
+function addCircleToMap(centerLoc) {
+    var circle = new google.maps.Circle({
+        map: map,
+        radius: 1100,
+        fillColor: '#AA0000',
+        center: centerLoc
+    });
 }
 
 function searchNearby(request) {
@@ -55,6 +67,7 @@ function randomSelection(results, status) {
         var randomIndex = getRandomIndex(resultsLength);
         var randomRestaurant = results[randomIndex];
         createMarker(randomRestaurant);
+        console.log(randomRestaurant)
         console.log("Random Selection:" + randomRestaurant.name);
     } else {
         console.error("PlacesServiceStatus Error:", status);
@@ -63,8 +76,9 @@ function randomSelection(results, status) {
 
 function callback(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-        console.log('Results:');
+        // console.log('Results:');
         for (var i = 0; i < results.length; i++) {
+            console.log(`Results: ${results[i]}`);
             restaurantName = results[i].name;
             const place = document.createElement("div");
             place.classList.add("place");
