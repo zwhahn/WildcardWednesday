@@ -1580,6 +1580,10 @@ html {
   height: 24rem;
 }
 
+.h-9 {
+  height: 2.25rem;
+}
+
 .max-h-fit {
   max-height: -moz-fit-content;
   max-height: fit-content;
@@ -1663,12 +1667,33 @@ html {
   padding-bottom: 1.5rem;
 }
 
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
 .pr-3 {
   padding-right: 0.75rem;
 }
 
 .pr-6 {
   padding-right: 1.5rem;
+}
+
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
+
+.pr-4 {
+  padding-right: 1rem;
+}
+
+.pr-5 {
+  padding-right: 1.25rem;
+}
+
+.pl-4 {
+  padding-left: 1rem;
 }
 
 .text-4xl {
@@ -1679,6 +1704,11 @@ html {
 .text-5xl {
   font-size: 3rem;
   line-height: 1;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 .font-bold {
