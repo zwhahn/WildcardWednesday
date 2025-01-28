@@ -90,6 +90,7 @@ function randomSelection(results, status) {
         var randomIndex = getRandomIndex(resultsLength);
         var randomRestaurant = results[randomIndex];
         createMarker(randomRestaurant);
+        restaurantChoice.textContent = `${randomRestaurant.name}`;
     } else {
         console.error("PlacesServiceStatus Error:", status);
     }

@@ -1536,6 +1536,10 @@ html {
   grid-row-end: 3;
 }
 
+.m-6 {
+  margin: 1.5rem;
+}
+
 .flex {
   display: flex;
 }
@@ -1582,6 +1586,14 @@ html {
 
 .h-9 {
   height: 2.25rem;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.h-8 {
+  height: 2rem;
 }
 
 .max-h-fit {
@@ -1694,6 +1706,14 @@ html {
 
 .pl-4 {
   padding-left: 1rem;
+}
+
+.pt-4 {
+  padding-top: 1rem;
+}
+
+.align-middle {
+  vertical-align: middle;
 }
 
 .text-4xl {
