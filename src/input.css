@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 * {
-    margin: 0px;
-    }
+    border: red;
+}
 
 .list_container {
     display: flex;
@@ -27,8 +27,4 @@
 .restaurants_list {
     display: flex;
     flex-flow: column;
-}
-
-#map {
-    height: 200px;
 }
