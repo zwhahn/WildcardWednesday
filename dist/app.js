@@ -5,12 +5,20 @@ var request;
 var searchCircle;
 var centerCircle;
 
+const averageWalkingSpeedMeterPerSecond = 1.42; //[m/s] source: https://en.wikipedia.org/wiki/Preferred_walking_speed
+const averageWalkingSpeedMeterPerMinute = 1.42 * 60; //[m/min]
+
 const placeListContainer = document.getElementById('place-list-container');
 const searchButton = document.getElementById('search');
 const rangeInput = document.getElementById("distance");
 rangeInput.oninput = function () {
     getRangeValue();
+    updateWalkingTime();
 };
+const walkingTime = document.getElementById("walking-time");
+const restaurantChoice = document.getElementById("restaurant-choice")
+
+updateWalkingTime(); //Set initial value
 
 function initialize() {
     var work_place = new google.maps.LatLng(37.762695, -122.408930);
@@ -39,9 +47,6 @@ function initialize() {
     searchButton.addEventListener("click", function() {
         searchNearby(request);
     });
-    
-    // service = new google.maps.places.PlacesService(map);
-    // service.nearbySearch(request, callback);
 }
 
 function drawSearchRadius(centerLoc) {
@@ -81,6 +86,7 @@ function randomSelection(results, status) {
         var randomIndex = getRandomIndex(resultsLength);
         var randomRestaurant = results[randomIndex];
         createMarker(randomRestaurant);
+        restaurantChoice.textContent = `${randomRestaurant.name}`
         console.log(randomRestaurant)
         console.log("Random Selection:" + randomRestaurant.name);
     } else {
@@ -119,4 +125,9 @@ function getRangeValue() {
     searchCircle.setRadius(parseInt(distance, 10));
     request.radius = distance;
     return distance;
+}
+
+function updateWalkingTime() {
+    var calcWalkTime = Math.round(distance.value / averageWalkingSpeedMeterPerMinute);
+    walkingTime.textContent = `${calcWalkTime}min walk`;
 }
