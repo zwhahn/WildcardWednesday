@@ -16,9 +16,9 @@ function initialize() {
     var work_place = new google.maps.LatLng(37.762695, -122.408930);
     infoWindow = new google.maps.InfoWindow();
 
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('mapContainer'), {
         center: work_place,
-        zoom: 15,
+        zoom: 14,
         mapId: "DEMO_MAP_ID",
     });
 

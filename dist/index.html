@@ -9,26 +9,21 @@
     <script src="app.js" async defer></script>
 </head>
 <body>
-    <div class="h-screen w-screen">
-        <div class="grid-rows-12 grid h-full">
-            <div class="flex w-screen justify-center items-center row-start-1 row-end-3">
-                <h1 class="text-4xl">
-                    Wildcard Wednesday
-                </h1>
-            </div>
-            <div class="flex-col row-start-3 row-end-12">
-                <div class="flex flex-col  w-full h-full items-center">
-                    <div id="map" class="h-4/5 w-3/5"></div>
-                    <input type="range" id="distance" name="distance" min="100" max="1500" step="100">
-                    <button id="search" class="btn">Search</button>
-                </div>
-                <!-- <div class="flex w-full h-full justify-center"> -->
-                <!-- </div> -->
-            </div>
-            <div class="footer row-start-12 row-end-13"></div>
+    <div class="hero bg-base-200 min-h-screen">
+        <div class="hero-content flex-col lg:flex-row-reverse">
+            <div id="mapContainer" class="h-96 w-96 rounded-lg shadow-2xl"></div>
+          <!-- <img
+            src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+            class="max-w-sm rounded-lg shadow-2xl" /> -->
+          <div class="pr-6">
+            <h1 class="text-5xl font-bold">Wildcard Wednesday</h1>
+            <p class="py-6">
+              Get a random resteraunt recommended to you within the distance of your choosing!
+            </p>
+            <input type="range" id="distance" name="distance" min="100" max="1500" step="100">
+            <button id="search" class="btn btn-primary">Search</button>
+          </div>
         </div>
-        
-    </div>
-
+      </div>
 </body>
 </html>
