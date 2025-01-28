@@ -4,9 +4,11 @@ var infoWindow;
 var request;
 var searchCircle;
 var centerCircle;
+var marker;
 
 const averageWalkingSpeedMeterPerSecond = 1.42; //[m/s] source: https://en.wikipedia.org/wiki/Preferred_walking_speed
 const averageWalkingSpeedMeterPerMinute = 1.42 * 60; //[m/min]
+const rangeFillColor = '#89CFF0'
 
 const placeListContainer = document.getElementById('place-list-container');
 const searchButton = document.getElementById('search');
@@ -53,8 +55,9 @@ function drawSearchRadius(centerLoc) {
     searchCircle = new google.maps.Circle({
         map: map,
         radius: 1100,
-        fillColor: '#AA0000',
-        center: centerLoc
+        fillColor: rangeFillColor,
+        center: centerLoc,
+        strokeColor: `#6495ED`
     });
     return;
 }
@@ -62,9 +65,10 @@ function drawSearchRadius(centerLoc) {
 function drawCenterCircle(centerLoc) {
     centerCircle = new google.maps.Circle({
         map: map,
-        radius: 10,
+        center: centerLoc,
+        radius: 20,
         fillColor: 'blue',
-        center: centerLoc
+        fillOpacity: 1
     });
     return;
 }
@@ -86,9 +90,6 @@ function randomSelection(results, status) {
         var randomIndex = getRandomIndex(resultsLength);
         var randomRestaurant = results[randomIndex];
         createMarker(randomRestaurant);
-        restaurantChoice.textContent = `${randomRestaurant.name}`
-        console.log(randomRestaurant)
-        console.log("Random Selection:" + randomRestaurant.name);
     } else {
         console.error("PlacesServiceStatus Error:", status);
     }
@@ -113,12 +114,24 @@ function callback(results, status) {
 }
 
 function createMarker(place) {
-    const marker = new google.maps.marker.AdvancedMarkerElement({
+    removeMarker();
+    marker = new google.maps.marker.AdvancedMarkerElement({
         map: map,
         position: place.geometry.location,
         title: place.name,
     });
 }
+
+
+function removeMarker() {
+    if (marker) {
+        marker.map = null; // Removes the marker from the map
+        marker = null; // Optionally clear the reference
+    } else {
+        console.warn("No marker to remove!");
+    }
+}
+
 
 function getRangeValue() {
     var distance = rangeInput.value;
