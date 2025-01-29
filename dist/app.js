@@ -5,6 +5,7 @@ var request;
 var searchCircle;
 var centerCircle;
 var marker;
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 const averageWalkingSpeedMeterPerSecond = 1.42; //[m/s] source: https://en.wikipedia.org/wiki/Preferred_walking_speed
 const averageWalkingSpeedMeterPerMinute = 1.42 * 60; //[m/min]
@@ -18,7 +19,27 @@ rangeInput.oninput = function () {
     updateWalkingTime();
 };
 const walkingTime = document.getElementById("walking-time");
-const restaurantChoice = document.getElementById("restaurant-choice")
+const restaurantChoice = document.getElementById("restaurant-choice");
+restaurantChoice.onmouseover = event => {
+    let iterations = 0;
+
+    
+    const interval = setInterval(() => {
+        event.target.innerText = event.target.innerText.split("")
+          .map((letter, index) => {
+            if (index < iterations) {
+                return event.target.dataset.value[index];
+            }
+            
+            return letters[Math.floor(Math.random() * 26)]
+        })
+        .join("");
+
+        if (iterations >= event.target.dataset.value.length) clearInterval(interval);
+
+        iterations += 1/3;
+    }, 30)
+}
 
 updateWalkingTime(); //Set initial value
 
@@ -144,4 +165,8 @@ function getRangeValue() {
 function updateWalkingTime() {
     var calcWalkTime = Math.round(distance.value / averageWalkingSpeedMeterPerMinute);
     walkingTime.textContent = `${calcWalkTime}min walk`;
+}
+
+function hackerEffect() {
+
 }
