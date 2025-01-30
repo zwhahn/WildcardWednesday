@@ -21,38 +21,22 @@ rangeInput.oninput = function () {
 const walkingTime = document.getElementById("walking-time");
 const restaurantChoice = document.getElementById("restaurant-choice");
 restaurantChoice.onmouseover = event => {
-    let iterations = 0;
-
-    
-    const interval = setInterval(() => {
-        event.target.innerText = event.target.innerText.split("")
-          .map((letter, index) => {
-            if (index < iterations) {
-                return event.target.dataset.value[index];
-            }
-            
-            return letters[Math.floor(Math.random() * 26)]
-        })
-        .join("");
-
-        if (iterations >= event.target.dataset.value.length) clearInterval(interval);
-
-        iterations += 1/3;
-    }, 30)
+    hackerEffect(event);
 }
 
 updateWalkingTime(); //Set initial value
 
+
 function initialize() {
     var work_place = new google.maps.LatLng(37.762695, -122.408930);
     infoWindow = new google.maps.InfoWindow();
-
+    
     map = new google.maps.Map(document.getElementById('mapContainer'), {
         center: work_place,
         zoom: 14,
         mapId: "DEMO_MAP_ID",
     });
-
+    
     
     var distance = rangeInput.value;
     console.log(`Distance: ${distance}`);
@@ -63,7 +47,7 @@ function initialize() {
         type: ["restaurant"],
         // rankBy: google.maps.places.RankBy.DISTANCE, 
     };
-
+    
     drawSearchRadius(work_place);
     drawCenterCircle(work_place);
     
@@ -167,6 +151,23 @@ function updateWalkingTime() {
     walkingTime.textContent = `${calcWalkTime}min walk`;
 }
 
-function hackerEffect() {
+function hackerEffect(event) {
+    let iterations = 0;
 
+    
+    const interval = setInterval(() => {
+        event.target.innerText = event.target.innerText.split("")
+          .map((letter, index) => {
+            if (index < iterations) {
+                return event.target.dataset.value[index];
+            }
+            
+            return letters[Math.floor(Math.random() * 26)]
+        })
+        .join("");
+
+        if (iterations >= event.target.dataset.value.length) clearInterval(interval);
+
+        iterations += 1/3;
+    }, 30)
 }
