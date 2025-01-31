@@ -20,12 +20,11 @@ rangeInput.oninput = function () {
 };
 const walkingTime = document.getElementById("walking-time");
 const restaurantChoice = document.getElementById("restaurant-choice");
-restaurantChoice.onmouseover = event => {
-    hackerEffect(event);
-}
+// restaurantChoice.onmouseover = event => {
+//     hackerEffect(event);
+// }
 
 updateWalkingTime(); //Set initial value
-
 
 function initialize() {
     var work_place = new google.maps.LatLng(37.762695, -122.408930);
@@ -54,6 +53,9 @@ function initialize() {
     searchButton.addEventListener("click", function() {
         searchNearby(request);
     });
+
+    console.log("Google Maps API:", google.maps);
+    console.log("Google Places API:", google.maps.places);
 }
 
 function drawSearchRadius(centerLoc) {
@@ -83,6 +85,7 @@ function searchNearby(request) {
     console.log(`Searched distance: ${request.radius}`)
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, randomSelection);
+    console.log("After nearbySearch call");
 }
 
 function getRandomIndex(max) {
@@ -90,11 +93,14 @@ function getRandomIndex(max) {
 }
 
 function randomSelection(results, status) {
+    console.log("Random Selection started");
     if (status == google.maps.places.PlacesServiceStatus.OK) {
         var resultsLength = results.length;
         var randomIndex = getRandomIndex(resultsLength);
         var randomRestaurant = results[randomIndex];
         createMarker(randomRestaurant);
+        console.log('random selection');
+        hackerEffect(randomRestaurant.name);
         restaurantChoice.textContent = `${randomRestaurant.name}`;
     } else {
         console.error("PlacesServiceStatus Error:", status);
@@ -107,6 +113,8 @@ function callback(results, status) {
         for (var i = 0; i < results.length; i++) {
             console.log(`Results: ${results[i]}`);
             restaurantName = results[i].name;
+            console.log(`prehacler effect`)
+            hackerEffect(restaurantName);
             const place = document.createElement("div");
             place.classList.add("place");
             place.textContent = restaurantName;
@@ -151,22 +159,24 @@ function updateWalkingTime() {
     walkingTime.textContent = `${calcWalkTime}min walk`;
 }
 
-function hackerEffect(event) {
+function hackerEffect(restaurantName) {
+    console.log(`restaurant name: ${restaurantName}`);
+    var restaurantNameSplit = restaurantName.split("");
     let iterations = 0;
 
     
     const interval = setInterval(() => {
-        event.target.innerText = event.target.innerText.split("")
+        restaurantNameSplit
           .map((letter, index) => {
             if (index < iterations) {
-                return event.target.dataset.value[index];
+                return restaurantName.value[index];
             }
             
             return letters[Math.floor(Math.random() * 26)]
         })
         .join("");
 
-        if (iterations >= event.target.dataset.value.length) clearInterval(interval);
+        if (iterations >= restaurantName.length) clearInterval(interval);
 
         iterations += 1/3;
     }, 30)
