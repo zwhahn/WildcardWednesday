@@ -20,9 +20,6 @@ rangeInput.oninput = function () {
 };
 const walkingTime = document.getElementById("walking-time");
 const restaurantChoice = document.getElementById("restaurant-choice");
-// restaurantChoice.onmouseover = event => {
-//     hackerEffect(event);
-// }
 
 updateWalkingTime(); //Set initial value
 
@@ -43,7 +40,7 @@ function initialize() {
     request = {
         location: work_place,
         radius: distance,
-        type: ["restaurant"],
+        type: "restaurant",
         // rankBy: google.maps.places.RankBy.DISTANCE, 
     };
     
@@ -53,9 +50,6 @@ function initialize() {
     searchButton.addEventListener("click", function() {
         searchNearby(request);
     });
-
-    console.log("Google Maps API:", google.maps);
-    console.log("Google Places API:", google.maps.places);
 }
 
 function drawSearchRadius(centerLoc) {
@@ -98,6 +92,7 @@ function randomSelection(results, status) {
         var resultsLength = results.length;
         var randomIndex = getRandomIndex(resultsLength);
         var randomRestaurant = results[randomIndex];
+        hackerEffect(randomRestaurant.name);
         createMarker(randomRestaurant);
         console.log('random selection');
         hackerEffect(randomRestaurant.name);
@@ -164,12 +159,12 @@ function hackerEffect(restaurantName) {
     var restaurantNameSplit = restaurantName.split("");
     let iterations = 0;
 
-    
     const interval = setInterval(() => {
-        restaurantNameSplit
+        restaurantChoice.textContent = restaurantNameSplit
           .map((letter, index) => {
+            
             if (index < iterations) {
-                return restaurantName.value[index];
+                return restaurantName[index];
             }
             
             return letters[Math.floor(Math.random() * 26)]
