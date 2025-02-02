@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    border: red;
+}
+
+.list_container {
+    display: flex;
+    justify-content: center;
+}
+
+.restaurants {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 400px;
+    align-self: center;
+}
+
+.list_header {
+    display: flex;
+    justify-content: left;
+}
+
+.restaurants_list {
+    display: flex;
+    flex-flow: column;
+}
