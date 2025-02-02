@@ -12,11 +12,8 @@
     <div class="hero bg-base-200 min-h-screen">
         <div class="hero-content flex-col lg:flex-row-reverse">
             <div id="mapContainer" class="h-96 w-96 rounded-lg shadow-2xl"></div>
-          <!-- <img
-            src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-            class="max-w-sm rounded-lg shadow-2xl" /> -->
-          <div class="pr-6">
-            <h1 class="text-5xl font-bold">Wildcard We<span class="text-accent">nd</span>sday</h1>
+          <div class="pr-6 max-w-2xl">
+            <h1 class="text-8xl font-bold">Wildcard We<span class="text-accent">nd</span>sday</h1>
             <p class="py-6">
               Get a random resteraunt recommended to you within the distance of your choosing!
             </p>
@@ -28,10 +25,18 @@
                 <button id="search" class="btn btn-primary">Get Wild!</button>
             </div>
             <div>
-                <h2 data-value="RESTAURANT" id="restaurant-choice" class="text-2xl h-4 pt-4">RESTAURANT</h2>
+                <h2 id="restaurant-choice" class="text-4xl h-16 pt-8 text-blue-700 font-bold"></h2>
             </div>
           </div>
         </div>
-      </div>
+        <footer class="footer self-end p-2 text-neutral-content">
+          <div class="w-full justify-center items-center">
+            <a class="flex" href="https://github.com/zwhahn" target="_blank">
+              zwhahn
+              <img class="h-5" src="../images/github-mark-white.png" alt="GitHub Invertocat logo">
+            </a>
+          </div>
+        </footer>
+    </div>
 </body>
 </html>

@@ -174,5 +174,5 @@ function hackerEffect(restaurantName) {
         if (iterations >= restaurantName.length) clearInterval(interval);
 
         iterations += 1/3;
-    }, 30)
+    }, 15)
 }
