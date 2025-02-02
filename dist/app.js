@@ -1,3 +1,4 @@
+// Initialize global variables
 var map;
 var service;
 var infoWindow;
@@ -5,12 +6,16 @@ var request;
 var searchCircle;
 var centerCircle;
 var marker;
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+// Initialize global constants
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";  // Used during 'hacker effect
 
 const averageWalkingSpeedMeterPerSecond = 1.42; //[m/s] source: https://en.wikipedia.org/wiki/Preferred_walking_speed
 const averageWalkingSpeedMeterPerMinute = 1.42 * 60; //[m/min]
+
 const rangeFillColor = '#89CFF0'
 
+// HTML Elements
 const placeListContainer = document.getElementById('place-list-container');
 const searchButton = document.getElementById('search');
 const rangeInput = document.getElementById("distance");
@@ -21,27 +26,23 @@ rangeInput.oninput = function () {
 const walkingTime = document.getElementById("walking-time");
 const restaurantChoice = document.getElementById("restaurant-choice");
 
-updateWalkingTime(); //Set initial value
+updateWalkingTime(); //Display initial value
 
 function initialize() {
+    // Establish center of map location and create the map
     var work_place = new google.maps.LatLng(37.762695, -122.408930);
-    infoWindow = new google.maps.InfoWindow();
-    
     map = new google.maps.Map(document.getElementById('mapContainer'), {
         center: work_place,
         zoom: 14,
         mapId: "DEMO_MAP_ID",
     });
     
-    
+    // Create initial request
     var distance = rangeInput.value;
-    console.log(`Distance: ${distance}`);
-    
     request = {
         location: work_place,
         radius: distance,
-        type: "restaurant",
-        // rankBy: google.maps.places.RankBy.DISTANCE, 
+        type: "restaurant"
     };
     
     drawSearchRadius(work_place);
@@ -75,53 +76,30 @@ function drawCenterCircle(centerLoc) {
 }
 
 function searchNearby(request) {
-    console.log("searched");
-    console.log(`Searched distance: ${request.radius}`)
-    service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, randomSelection);
-    console.log("After nearbySearch call");
+    service = new google.maps.places.PlacesService(map); // Class that provides methods for search
+    service.nearbySearch(request, randomSelection); // Use randomSelection as the callback function
+}
+
+// Handle results from nearbySearch
+function randomSelection(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        // Get length of results list, choose a random number in that range and then use that as the index
+        var resultsLength = results.length;
+        var randomIndex = getRandomIndex(resultsLength);
+        var randomRestaurant = results[randomIndex];
+        hackerEffect(randomRestaurant.name);
+        createMarker(randomRestaurant);
+    } else {
+        console.error("PlacesServiceStatus Error:", status);
+    }
 }
 
 function getRandomIndex(max) {
     return Math.floor(Math.random() * max);
 }
 
-function randomSelection(results, status) {
-    console.log("Random Selection started");
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var resultsLength = results.length;
-        var randomIndex = getRandomIndex(resultsLength);
-        var randomRestaurant = results[randomIndex];
-        hackerEffect(randomRestaurant.name);
-        createMarker(randomRestaurant);
-        console.log('random selection');
-        hackerEffect(randomRestaurant.name);
-        restaurantChoice.textContent = `${randomRestaurant.name}`;
-    } else {
-        console.error("PlacesServiceStatus Error:", status);
-    }
-}
-
-function callback(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
-        // console.log('Results:');
-        for (var i = 0; i < results.length; i++) {
-            console.log(`Results: ${results[i]}`);
-            restaurantName = results[i].name;
-            console.log(`prehacler effect`)
-            hackerEffect(restaurantName);
-            const place = document.createElement("div");
-            place.classList.add("place");
-            place.textContent = restaurantName;
-            placeListContainer.appendChild(place);
-            createMarker(results[i]);
-            // console.log(restaurantName);
-        }
-    } else {
-        console.error("PlacesServiceStatus Error:", status);
-    }
-}
-
+// Add mark on map showing place location
+// Remove a previous marker if it exists (only one location displayed at a time)
 function createMarker(place) {
     removeMarker();
     marker = new google.maps.marker.AdvancedMarkerElement({
@@ -131,17 +109,16 @@ function createMarker(place) {
     });
 }
 
-
 function removeMarker() {
     if (marker) {
         marker.map = null; // Removes the marker from the map
-        marker = null; // Optionally clear the reference
     } else {
-        console.warn("No marker to remove!");
+        console.log("No marker to remove!");
     }
 }
 
-
+// Get distance from slider input
+// Update radius visually on map and in request
 function getRangeValue() {
     var distance = rangeInput.value;
     searchCircle.setRadius(parseInt(distance, 10));
@@ -154,25 +131,30 @@ function updateWalkingTime() {
     walkingTime.textContent = `${calcWalkTime}min walk`;
 }
 
+// Inspired by Hyperplexed: https://youtu.be/W5oawMJaXbU?si=u1Bb4zosXCgWhaXS
 function hackerEffect(restaurantName) {
-    console.log(`restaurant name: ${restaurantName}`);
+    // Split restaurant name into an array of characters
     var restaurantNameSplit = restaurantName.split("");
-    let iterations = 0;
+    let iterations = 0; // Tracks progress of revealed letters
 
     const interval = setInterval(() => {
+        // Modify restaurantChoice text by replacing letters with random characters
         restaurantChoice.textContent = restaurantNameSplit
           .map((letter, index) => {
             
+            // If this index has already been reached, show the actual letter
             if (index < iterations) {
                 return restaurantName[index];
             }
-            
+            // Otherwise, replace with a random letter from the alphabet
             return letters[Math.floor(Math.random() * 26)]
         })
-        .join("");
+        .join(""); // Convert array back into a string
 
+        // Stop the effect when all letters are revealed
         if (iterations >= restaurantName.length) clearInterval(interval);
 
-        iterations += 1/3;
-    }, 15)
+        // Increment iterations to gradually reveal letters
+        iterations += 1/4;
+    }, 15) // Repeat every 15ms
 }
