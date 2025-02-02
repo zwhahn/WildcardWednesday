@@ -1599,22 +1599,6 @@ html {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.absolute {
-  position: absolute;
-}
-
-.relative {
-  position: relative;
-}
-
-.bottom-0 {
-  bottom: 0px;
-}
-
-.left-0 {
-  left: 0px;
-}
-
 .flex {
   display: flex;
 }
@@ -1643,28 +1627,6 @@ html {
   width: 100%;
 }
 
-.max-w-sm {
-  max-width: 24rem;
-}
-
-.max-w-min {
-  max-width: -moz-min-content;
-  max-width: min-content;
-}
-
-.max-w-max {
-  max-width: -moz-max-content;
-  max-width: max-content;
-}
-
-.max-w-lg {
-  max-width: 32rem;
-}
-
-.max-w-xl {
-  max-width: 36rem;
-}
-
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -1675,10 +1637,6 @@ html {
 
 .items-center {
   align-items: center;
-}
-
-.justify-end {
-  justify-content: flex-end;
 }
 
 .justify-center {
@@ -1694,18 +1652,6 @@ html {
   align-self: flex-end;
 }
 
-.justify-self-end {
-  justify-self: end;
-}
-
-.text-nowrap {
-  text-wrap: nowrap;
-}
-
-.text-pretty {
-  text-wrap: pretty;
-}
-
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -1715,29 +1661,8 @@ html {
   background-color: var(--fallback-b2,oklch(var(--b2)/var(--tw-bg-opacity, 1)));
 }
 
-.bg-neutral {
-  --tw-bg-opacity: 1;
-  background-color: var(--fallback-n,oklch(var(--n)/var(--tw-bg-opacity, 1)));
-}
-
-.p-10 {
-  padding: 2.5rem;
-}
-
-.p-5 {
-  padding: 1.25rem;
-}
-
-.p-0 {
-  padding: 0px;
-}
-
 .p-2 {
   padding: 0.5rem;
-}
-
-.p-6 {
-  padding: 1.5rem;
 }
 
 .py-6 {
@@ -1761,36 +1686,13 @@ html {
   padding-top: 2rem;
 }
 
-.pl-6 {
-  padding-left: 1.5rem;
-}
-
-.align-baseline {
-  vertical-align: baseline;
-}
-
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
 }
 
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
-}
-
 .text-8xl {
   font-size: 6rem;
-  line-height: 1;
-}
-
-.text-6xl {
-  font-size: 3.75rem;
-  line-height: 1;
-}
-
-.text-7xl {
-  font-size: 4.5rem;
   line-height: 1;
 }
 
@@ -1808,42 +1710,10 @@ html {
   color: rgb(29 78 216 / var(--tw-text-opacity, 1));
 }
 
-.text-neutral-content {
-  --tw-text-opacity: 1;
-  color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity, 1)));
-}
-
 .shadow-2xl {
   --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
   --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-* {
-  border: red;
-}
-
-.list_container {
-  display: flex;
-  justify-content: center;
-}
-
-.restaurants {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  width: 400px;
-  align-self: center;
-}
-
-.list_header {
-  display: flex;
-  justify-content: left;
-}
-
-.restaurants_list {
-  display: flex;
-  flex-flow: column;
 }
 
 @media (min-width: 1024px) {
