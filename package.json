@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && tailwindcss -i ./src/input.css -o ./dist/output.css --minify && mkdir -p ./dist && cp ./src/*.html ./src/*.js ./dist/"
+    "build": "rm -rf dist && mkdir -p ./dist && cp ./src/*.html ./src/*.js ./dist/ && tailwindcss -i ./src/input.css -o ./dist/output.css --minify"
   },
   "author": "",
   "license": "ISC",
