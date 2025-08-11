@@ -124,9 +124,8 @@ function createMarker(place) {
 function removeMarker() {
     if (marker) {
         marker.map = null; // Removes the marker from the map
-    } else {
-        console.log("No marker to remove!");
-    }
+    } 
+    return;
 }
 
 // Get distance from slider input
