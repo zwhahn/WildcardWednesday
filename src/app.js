@@ -3,9 +3,11 @@ var map;
 var service;
 var infoWindow;
 var request;
+var prevRadius;
 var searchCircle;
 var centerCircle;
 var marker;
+var prevResults;
 
 // Initialize global constants
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";  // Used during 'hacker effect
@@ -75,40 +77,21 @@ function drawCenterCircle(centerLoc) {
     return;
 }
 
-async function searchNearby(request) {
-    try {
-        // Extract coordinates from your request
-        const lat = request.location.lat();
-        const lng = request.location.lng();
-        const radius = request.radius;
-        const type = request.type;
-
-        // Call your Netlify function
-        const response = await fetch(
-            `/.netlify/functions/google-maps/nearby?lat=${lat}&lng=${lng}&radius=${radius}&type=${type}`
-        );
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        
-        // Handle the results the same way as before
-        if (data.status === 'OK' && data.results) {
-            randomSelection(data.results, data.status);
-        } else {
-            console.error("Places API Error:", data.status);
-        }
-
-    } catch (error) {
-        console.error("Error calling Netlify function:", error);
+function searchNearby(request) {
+    if (request.radius == prevRadius) {  // use same results if search radius hasn't changed
+        randomSelection(prevResults);
+    }
+    else {
+        var prevRadius = request.radius;  // save search radius
+        service = new google.maps.places.PlacesService(map); // Class that provides methods for search
+        service.nearbySearch(request, randomSelection); // Use randomSelection as the callback function
     }
 }
 
 // Handle results from nearbySearch
 function randomSelection(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
+        prevResults = results;
         // Get length of results list, choose a random number in that range and then use that as the index
         var resultsLength = results.length;
         var randomIndex = getRandomIndex(resultsLength);
