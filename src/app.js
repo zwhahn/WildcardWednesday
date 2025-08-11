@@ -75,9 +75,35 @@ function drawCenterCircle(centerLoc) {
     return;
 }
 
-function searchNearby(request) {
-    service = new google.maps.places.PlacesService(map); // Class that provides methods for search
-    service.nearbySearch(request, randomSelection); // Use randomSelection as the callback function
+async function searchNearby(request) {
+    try {
+        // Extract coordinates from your request
+        const lat = request.location.lat();
+        const lng = request.location.lng();
+        const radius = request.radius;
+        const type = request.type;
+
+        // Call your Netlify function
+        const response = await fetch(
+            `/.netlify/functions/google-maps/nearby?lat=${lat}&lng=${lng}&radius=${radius}&type=${type}`
+        );
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        // Handle the results the same way as before
+        if (data.status === 'OK' && data.results) {
+            randomSelection(data.results, data.status);
+        } else {
+            console.error("Places API Error:", data.status);
+        }
+
+    } catch (error) {
+        console.error("Error calling Netlify function:", error);
+    }
 }
 
 // Handle results from nearbySearch
