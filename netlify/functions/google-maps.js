@@ -2,6 +2,18 @@
 
 exports.handler = async (event, context) => {
   // Enable CORS for your frontend
+  const allowedOrigins = [
+  'https://wildcardwendsday.netlify.app',
+  'https://wildcardwendsday.com',
+  'https://www.wildcardwendsday.com',  // if you use www
+  'http://localhost:3000',  // for local development
+  'http://127.0.0.1:3000'   // for local development
+  ];
+
+    const origin = event.headers.origin;
+    const corsOrigin = allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
+
+
   const headers = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
