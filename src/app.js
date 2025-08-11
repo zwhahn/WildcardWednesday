@@ -80,6 +80,7 @@ function drawCenterCircle(centerLoc) {
 function searchNearby(request) {
     if (request.radius == prevRadius) {  // use same results if search radius hasn't changed
         randomSelection(prevResults);
+        console.log("radius has not changed");
     }
     else {
         var prevRadius = request.radius;  // save search radius
