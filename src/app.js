@@ -77,18 +77,35 @@ function drawCenterCircle(centerLoc) {
     return;
 }
 
-function searchNearby(request) {
-    console.log(`radius: ${request.radius}`);
-    console.log(`prevRadius: ${prevRadius}`);
-    if (request.radius == prevRadius) {  // use same results if search radius hasn't changed
-        randomSelection(prevResults);
-        console.log("radius has not changed");
+// function searchNearby(request) {
+//     console.log(`radius: ${request.radius}`);
+//     console.log(`prevRadius: ${prevRadius}`);
+//     if (request.radius == prevRadius) {  // use same results if search radius hasn't changed
+//         randomSelection(prevResults);
+//         console.log("radius has not changed");
+//     }
+//     else {
+//         var prevRadius = request.radius;  // save search radius
+//         service = new google.maps.places.Place(map); // Class that provides methods for search
+//         service.nearbySearch(request, randomSelection); // Use randomSelection as the callback function
+//     }
+// }
+
+async function searchNearby(request) {
+  try {
+    const url = `/.netlify/functions/google-maps/nearby?lat=${request.location.lat()}&lng=${request.location.lng()}&radius=${request.radius}&type=${request.type}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.results && data.results.length > 0) {
+      prevResults = data.results;   // cache for re-use
+      randomSelection(data.results, "OK");
+    } else {
+      console.error("No places found:", data);
     }
-    else {
-        var prevRadius = request.radius;  // save search radius
-        service = new google.maps.places.Place(map); // Class that provides methods for search
-        service.nearbySearch(request, randomSelection); // Use randomSelection as the callback function
-    }
+  } catch (err) {
+    console.error("Error fetching from Netlify function:", err);
+  }
 }
 
 // Handle results from nearbySearch
