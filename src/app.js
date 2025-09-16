@@ -110,7 +110,7 @@ async function searchNearby(request) {
 
 // Handle results from nearbySearch
 function randomSelection(results, status) {
-    if (status == google.maps.places.PlaceStatus.OK) {
+    if (status == "OK") {
         prevResults = results;
         // Get length of results list, choose a random number in that range and then use that as the index
         var resultsLength = results.length;
