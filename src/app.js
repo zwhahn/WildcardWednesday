@@ -86,14 +86,14 @@ function searchNearby(request) {
     }
     else {
         var prevRadius = request.radius;  // save search radius
-        service = new google.maps.places.PlacesService(map); // Class that provides methods for search
+        service = new google.maps.places.Place(map); // Class that provides methods for search
         service.nearbySearch(request, randomSelection); // Use randomSelection as the callback function
     }
 }
 
 // Handle results from nearbySearch
 function randomSelection(results, status) {
-    if (status == google.maps.places.PlacesServiceStatus.OK) {
+    if (status == google.maps.places.PlaceStatus.OK) {
         prevResults = results;
         // Get length of results list, choose a random number in that range and then use that as the index
         var resultsLength = results.length;
