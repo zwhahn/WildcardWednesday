@@ -30,7 +30,7 @@ const restaurantChoice = document.getElementById("restaurant-choice");
 
 updateWalkingTime(); //Display initial value
 
-function initialize() {
+window.initialize = function () {
     // Establish center of map location and create the map
     var work_place = new google.maps.LatLng(37.762695, -122.408930);
     map = new google.maps.Map(document.getElementById('mapContainer'), {
@@ -53,7 +53,7 @@ function initialize() {
     searchButton.addEventListener("click", function() {
         searchNearby(request);
     });
-}
+};
 
 function drawSearchRadius(centerLoc) {
     searchCircle = new google.maps.Circle({
